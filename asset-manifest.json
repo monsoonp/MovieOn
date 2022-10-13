@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/movieon/static/css/main.cf141aae.css",
+    "main.js": "/movieon/static/js/main.c2bac77d.js",
+    "index.html": "/movieon/index.html",
+    "main.cf141aae.css.map": "/movieon/static/css/main.cf141aae.css.map",
+    "main.c2bac77d.js.map": "/movieon/static/js/main.c2bac77d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf141aae.css",
+    "static/js/main.c2bac77d.js"
+  ]
+}
