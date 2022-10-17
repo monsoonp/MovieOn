@@ -2,16 +2,15 @@
 // full source here - https://github.com/nomadcoders/react-for-beginners
 
 // gh-pages
-// package.json 
+// package.json
 // add "homepage": "https://monsoonp.github.io/{repo}"
 // for gh-pages add basename to BrowserRouter
 
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
 
 function App() {
-  
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
@@ -19,7 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
