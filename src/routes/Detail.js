@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import styles from "./Home.module.css";
+import { Button, Spinner } from "reactstrap";
 
 function Detail() {
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const [movieData, setMovieData] = useState({});
   // console.log(id);
@@ -10,6 +13,7 @@ function Detail() {
     const json = await response.json();
     console.log(json);
     setMovieData(() => json.data.movie);
+    setLoading(false);
     return json;
   };
 
@@ -21,24 +25,34 @@ function Detail() {
 
   return (
     <div>
-      <Link to={`/`}>
-        <h1>
-          {/* {id} */}
+      {loading ? (
+        <div className={styles.loader}>
+          <Button color="primary" disabled>
+            <Spinner color="white" size="sm" /> <span>Loading...</span>
+          </Button>
+        </div>
+      ) : (
+        <div>
+          <Link to={`/`}>
+            <h1>
+              {/* {id} */}
 
-          <div>
-            {movieData.title} ({movieData.year})
-          </div>
-        </h1>
-      </Link>
-      <img src={movieData.small_cover_image} alt={movieData.title} />
-      <ul>
-        <li>{movieData.rating} (Rating)</li>
-        <li>{movieData.runtime} Min(Running Time)</li>
-        <li>{`${movieData.genres}`}</li>
-        <li>{movieData.description_intro}</li>
-      </ul>
-      <hr />
-      <img src={movieData.background_image_original} alt={movieData.title} />
+              <div>
+                {movieData.title} ({movieData.year})
+              </div>
+            </h1>
+          </Link>
+          <img src={movieData.small_cover_image} alt={movieData.title} />
+          <ul>
+            <li>{movieData.rating} ☆(Rating)</li>
+            <li>{movieData.runtime} ⏱(Min)</li>
+            <li>{`${movieData.genres}`}</li>
+            <li>{movieData.description_intro}</li>
+          </ul>
+          <hr />
+          <img src={movieData.background_image_original} alt={movieData.title} />
+        </div>
+      )}
     </div>
   );
 }
