@@ -9,6 +9,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
+import Domestic from "./routes/Domestic";
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
       <Routes>
         <Route path="/movie/:id" element={<Detail />} />
         <Route path="/" element={<Home />} />
+        <Route path="/domestic" element={<Domestic />} />
+        {/* page not found */}
+        <Route path="/*" element={<Home />} />
       </Routes>
     </Router>
   );
