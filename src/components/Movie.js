@@ -4,7 +4,7 @@ import { Badge, Card, CardBody, CardFooter, CardTitle, Col } from "reactstrap";
 import styles from "./Movie.module.css";
 
 function Movie({ id, title, coverImg, year, summary, genres }) {
-  const slicedSummary = summary.split(" ").length > 50 ? `${summary.split(" ").slice(0, 50).join(" ")} ...` : summary;
+  const slicedSummary = summary.split(" ").length > 70 ? `${summary.split(" ").slice(0, 70).join(" ")} ...` : summary;
 
   return (
     <Col className="my-5 mx-auto" sm="5">
