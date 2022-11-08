@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Movie from "../components/Movie";
+import MovieNat from "../components/MovieNat";
 import styles from "./Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Nav, Navbar, NavbarBrand, NavLink, Row, Spinner } from "reactstrap";
@@ -47,7 +47,20 @@ function Home() {
             </Nav>
           </Navbar>
           {/* 국내 영화 목록 */}
-          <Row></Row>
+          <Row>
+            {movies.map((movie) => (
+              <MovieNat
+                key={movie.movieNm}
+                id={movie.id}
+                rank={movie.rank}
+                title={movie.movieNm}
+                audiCount={movie.audiCnt}
+                audiAcc={movie.audiAcc}
+                scrnCnt={movie.scrnCnt}
+                date={movie.openDt}
+              />
+            ))}
+          </Row>
         </Container>
       )}
     </div>
