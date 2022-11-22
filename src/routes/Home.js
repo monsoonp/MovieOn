@@ -12,9 +12,18 @@ import { Link } from "react-router-dom";
 // https://yts.torrentbay.to/api
 // https://www.kobis.or.kr/kobisopenapi/homepg/apiservice/searchServiceInfo.do
 
-// bootstrap / reactstrap
+// naver api
+// https://developers.naver.com/docs/serviceapi/search/movie/movie.md
+
+/*
+// ///bootstrap / reactstrap
 // https://reactstrap.github.io/?path=/story/home-installation--page
 
+// tailwind
+// https://tailwindcss.com/docs/guides/create-react-app
+// https://velog.io/@dmk-jongwho/Tailwind-CSS-%EC%A0%81%EC%9A%A9%EA%B8%B01%ED%8E%B8-%EC%84%A4%EC%B9%98-%EC%82%AC%EC%9A%A9
+
+*/
 function Home() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
@@ -37,7 +46,7 @@ function Home() {
       {loading ? (
         <div className={styles.loader}>
           <Button color="primary" disabled>
-            <Spinner color="white" size="sm" /> <span>Loading...</span>
+            <Spinner color="light" size="sm" /> <span>Loading...</span>
           </Button>
         </div>
       ) : (
@@ -52,8 +61,9 @@ function Home() {
           </Navbar>
           {/* <div  className={styles.movies}> </div>*/}
           <Row>
-            {movies.map((movie) => (
+            {movies.map((movie, idx) => (
               <Movie
+                idx={idx}
                 key={movie.id}
                 id={movie.id}
                 title={movie.title}

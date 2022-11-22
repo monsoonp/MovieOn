@@ -11,7 +11,7 @@ function Detail() {
   const getMovie = async () => {
     const response = await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`);
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     setMovieData(() => json.data.movie);
     setLoading(false);
     return json;

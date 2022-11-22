@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Badge, Card, CardBody, CardFooter, CardTitle, Col } from "reactstrap";
 import styles from "./Movie.module.css";
 
-function Movie({ key, rank, title, audiCount, audiAcc, scrnCnt, date }) {
+function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
   return (
     <Col className="my-5 mx-auto" sm="5">
       <Card>
@@ -33,10 +33,8 @@ function Movie({ key, rank, title, audiCount, audiAcc, scrnCnt, date }) {
 }
 
 Movie.propTypes = {
+  rank: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  coverImg: PropTypes.string.isRequired,
-  summary: PropTypes.string.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Movie;
