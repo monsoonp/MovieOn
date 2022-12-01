@@ -6,6 +6,7 @@ import { Button, Container, Nav, Navbar, NavbarBrand, NavLink, Row, Spinner } fr
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import axios from "axios";
+import SpinLoader from "../components/util/SpinLoader";
 
 // 영화 상세
 // https://www.kobis.or.kr/kobisopenapi/homepg/apiservice/searchServiceInfo.do
@@ -38,7 +39,7 @@ function Domestic() {
 
   const getMovies2 = async () => {
     const response = await fetch(`${apiBase}/kobis/business/main/searchMainDailyBoxOffice.do`, {
-      method: "POST",
+      method: "GET",
       // mode: "no-cors", // no-cors, *cors, same-origin
       headers: {
         // Accept: "application/json",
@@ -51,7 +52,6 @@ function Domestic() {
     const response = await axios.post(`${apiBase}/kobis/business/main/searchMainDailyBoxOffice.do`);
     */
     const json = await response.json();
-
     console.log("data", json);
   };
 
@@ -64,11 +64,7 @@ function Domestic() {
   return (
     <div className={styles.container}>
       {loading ? (
-        <div className={styles.loader}>
-          <Button color="primary" disabled>
-            <Spinner color="light" size="sm" /> <span>Loading...</span>
-          </Button>
-        </div>
+        <SpinLoader />
       ) : (
         <Container fluid>
           <Navbar className="" color="dark" dark>
