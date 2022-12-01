@@ -4,6 +4,8 @@ import styles from "./Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Nav, Navbar, NavbarBrand, NavLink, Row, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import SpinLoader from "../components/util/SpinLoader";
 
 // material ui
 // https://mui.com/material-ui/getting-started/installation/
@@ -43,12 +45,15 @@ function Home() {
 
   return (
     <div className={styles.container}>
-      {loading ? (
+      {/*
         <div className={styles.loader}>
           <Button color="primary" disabled>
             <Spinner color="light" size="sm" /> <span>Loading...</span>
           </Button>
         </div>
+      */}
+      {loading ? (
+        <SpinLoader />
       ) : (
         <Container fluid>
           <Navbar className="" color="dark" dark>

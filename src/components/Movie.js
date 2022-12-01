@@ -9,16 +9,19 @@ function Movie({ idx, id, title, coverImg, year, summary, genres }) {
 
   const card = (idx) => {
     return {
-      hidden: { opacity: 0, scale: 0, x: -500 },
-      visible: {
+      hidden: { opacity: 0, scale: 0, x: -500, rotate: -30 },
+      show: {
         opacity: 1,
         scale: 1,
         x: 0,
+        rotate: 0,
         transition: {
           delay: idx * 0.2,
           // delayChildren: 0.3,
           // staggerChildren: 0.2,
-          ease: "easeInOut",
+          // ease: "easeInOut",
+          type: "spring",
+          bounce: 0.3,
           duration: 0.5,
         },
       },
@@ -27,7 +30,7 @@ function Movie({ idx, id, title, coverImg, year, summary, genres }) {
 
   return (
     <Col className="my-5 mx-auto" sm="5">
-      <motion.div variants={card(idx)} initial="hidden" animate="visible">
+      <motion.div variants={card(idx)} initial="hidden" animate="show">
         <Card>
           <CardTitle className="mx-3 mb-0">
             <div className={styles.movie}>
