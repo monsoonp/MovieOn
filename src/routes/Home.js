@@ -21,10 +21,6 @@ import SpinLoader from "../components/util/SpinLoader";
 // ///bootstrap / reactstrap
 // https://reactstrap.github.io/?path=/story/home-installation--page
 
-// tailwind
-// https://tailwindcss.com/docs/guides/create-react-app
-// https://velog.io/@dmk-jongwho/Tailwind-CSS-%EC%A0%81%EC%9A%A9%EA%B8%B01%ED%8E%B8-%EC%84%A4%EC%B9%98-%EC%82%AC%EC%9A%A9
-
 */
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -76,6 +72,7 @@ function Home() {
                 year={movie.year}
                 summary={movie.summary}
                 genres={movie.genres}
+                imdb={movie.imdb_code}
               />
             ))}
           </Row>
