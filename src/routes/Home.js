@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import Movie from "../components/Movie";
 import styles from "./Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Container, Nav, Navbar, NavbarBrand, NavLink, Row, Spinner } from "reactstrap";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Container, Row } from "reactstrap";
+
+import MovieNav from "../components/nav/Nav.js";
+// import { motion } from "framer-motion";
 import SpinLoader from "../components/util/SpinLoader";
 
 // material ui
@@ -52,14 +53,7 @@ function Home() {
         <SpinLoader />
       ) : (
         <Container fluid>
-          <Navbar className="" color="dark" dark>
-            <NavbarBrand color="white">
-              <Link to={`/`}>HOME</Link>
-            </NavbarBrand>
-            <Nav className="me-auto" navbar>
-              <NavLink href="/MovieOn/domestic">국내</NavLink>
-            </Nav>
-          </Navbar>
+          <MovieNav />
           {/* <div  className={styles.movies}> </div>*/}
           <Row>
             {movies.map((movie, idx) => (

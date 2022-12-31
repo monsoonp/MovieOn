@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import MovieNat from "../components/MovieNat";
 import styles from "./Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Nav, Navbar, NavbarBrand, NavLink, Row } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Container, Row } from "reactstrap";
+
+import MovieNav from "../components/nav/Nav.js";
+
 import dayjs from "dayjs";
 import axios from "axios";
 import SpinLoader from "../components/util/SpinLoader";
@@ -65,14 +67,7 @@ function Domestic() {
         <SpinLoader />
       ) : (
         <Container fluid>
-          <Navbar className="" color="dark" dark>
-            <NavbarBrand color="white">
-              <Link to={`/`}>Home</Link>
-            </NavbarBrand>
-            <Nav className="me-auto" navbar>
-              <NavLink href="/MovieOn/domestic">국내</NavLink>
-            </Nav>
-          </Navbar>
+          <MovieNav />
           {/* 국내 영화 목록 */}
           <Row>
             {movies.map((movie) => (
