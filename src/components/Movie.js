@@ -38,9 +38,15 @@ function Movie({ idx, id, title, coverImg, year, summary, genres, imdb }) {
                 <Link to={`/movie/${id}`}>{title}</Link>
               </h2>
 
-              <a href={`https://www.imdb.com/title/${imdb}`} target="_blank" rel="noopener noreferrer">
-                <img className={styles.movie__img} src={coverImg} alt={title} />
-              </a>
+              {/* <a href={`https://www.imdb.com/title/${imdb}`} target="_blank" rel="noopener noreferrer"> </a> */}
+              <img
+                className={styles.movie__img}
+                src={coverImg}
+                alt={title}
+                onClick={() => {
+                  window.open(`https://www.imdb.com/title/${imdb}`, "_blank");
+                }}
+              />
             </div>
           </CardTitle>
           {/* <CardSubtitle></CardSubtitle> */}
