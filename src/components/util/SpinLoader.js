@@ -18,7 +18,7 @@ const SpinLoader = () => {
             duration: 2,
           }}
         >
-          <Spinner color="light" size="sm" /> <span>Loading...</span>
+          <Spinner color="light" size="sm" /> <span>Loading . . .</span>
         </motion.div>
       </Button>
     </div>

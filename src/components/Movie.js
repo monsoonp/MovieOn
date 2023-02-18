@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Badge, Card, CardBody, CardFooter, CardTitle, Col } from "reactstrap";
 import { motion } from "framer-motion";
+import { UncontrolledTooltip } from "reactstrap";
 import styles from "./Movie.module.css";
 
-function Movie({ idx, id, title, coverImg, year, summary, genres, imdb }) {
+function Movie({ idx, id, title, coverImg, year, summary, genres, imdb, lang }) {
   const slicedSummary = summary.split(" ").length > 70 ? `${summary.split(" ").slice(0, 70).join(" ")} ...` : summary;
 
   const card = (idx) => {
@@ -35,32 +36,46 @@ function Movie({ idx, id, title, coverImg, year, summary, genres, imdb }) {
           <CardTitle className="mx-3 mb-0">
             <div className={styles.movie}>
               <h2 className={styles.movie__title}>
-                <Link to={`/movie/${id}`}>{title}</Link>
+                <Link to={`/movie/${id}`} target="_blank" rel="noopener noreferrer" id={`Detail_${id}`}>
+                  {title}
+                </Link>
+                <UncontrolledTooltip placement="bottom" target={`Detail_${id}`}>
+                  영화 상세
+                </UncontrolledTooltip>
               </h2>
 
               {/* <a href={`https://www.imdb.com/title/${imdb}`} target="_blank" rel="noopener noreferrer"> </a> */}
-              <img
-                className={styles.movie__img}
-                src={coverImg}
-                alt={title}
-                onClick={() => {
-                  window.open(`https://www.imdb.com/title/${imdb}`, "_blank");
-                }}
-              />
+              <motion.a href={`https://www.imdb.com/title/${imdb}`} target="_blank" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                <img
+                  className={styles.movie__img}
+                  src={coverImg}
+                  alt={title}
+                  id={`imdb_${id}`}
+                  // onClick={() => {window.open(`https://www.imdb.com/title/${imdb}`, "_blank");}}
+                />
+                <UncontrolledTooltip placement="right" target={`imdb_${id}`}>
+                  imdb 페이지
+                </UncontrolledTooltip>
+              </motion.a>
             </div>
           </CardTitle>
           {/* <CardSubtitle></CardSubtitle> */}
           {/* <CardBody><h3 className={styles.movie__year}></h3></CardBody> */}
+
           <CardBody>
             <p>{slicedSummary}</p>
           </CardBody>
+
           <CardFooter>
-            <Badge className="float-start mx-3 mt-1" color="primary">
+            <Badge className="float-start mx-0 mt-1" color="primary">
               {year}
             </Badge>
+            <Badge className="float-start mx-2 mt-1" color="primary">
+              {lang}
+            </Badge>
             <ul className={styles.movie__genres}>
-              {genres.map((g, idx) => (
-                <li key={idx}>{g}</li>
+              {genres.map((genre, idx) => (
+                <li key={idx}>{genre}</li>
               ))}
             </ul>
           </CardFooter>

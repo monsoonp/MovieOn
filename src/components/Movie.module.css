@@ -50,3 +50,12 @@
   margin-right: 10px;
   font-size: 14px;
 }
+
+.movie__count {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  margin: 5px 0px;
+}

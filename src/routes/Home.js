@@ -23,6 +23,7 @@ import SpinLoader from "../components/util/SpinLoader";
 // https://reactstrap.github.io/?path=/story/home-installation--page
 
 */
+
 function Home() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
@@ -54,7 +55,9 @@ function Home() {
       ) : (
         <Container fluid>
           <MovieNav />
-          {/* <div  className={styles.movies}> </div>*/}
+          {/* <div className={styles.movies}></div> */}
+          <div>글로벌 개봉 예정작</div>
+
           <Row>
             {movies.map((movie, idx) => (
               <Movie
@@ -67,6 +70,7 @@ function Home() {
                 summary={movie.summary}
                 genres={movie.genres}
                 imdb={movie.imdb_code}
+                lang={movie.language}
               />
             ))}
           </Row>

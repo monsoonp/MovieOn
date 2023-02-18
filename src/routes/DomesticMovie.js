@@ -43,6 +43,7 @@ function Domestic() {
 
   // TODO: 국내 영화 페이지 수정
   // FIXME: 상세 페이지 내용 수정
+  // TODO: 영화 상세 내용, 이미지 추가 / 백엔드 - naver 검색 API 연동
   const getMovies = async () => {
     // https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=20221101
     const yesterday = dayjs().subtract(1, "day").format("YYYYMMDD");
