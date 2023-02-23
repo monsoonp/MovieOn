@@ -36,7 +36,7 @@ function Movie({ idx, id, title, coverImg, year, summary, genres, imdb, lang }) 
           <CardTitle className="mx-3 mb-0">
             <div className={styles.movie}>
               <h2 className={styles.movie__title}>
-                <Link to={`/movie/${id}`} target="_blank" rel="noopener noreferrer" id={`Detail_${id}`}>
+                <Link to={`/detail/${id}`} target="_blank" rel="noopener noreferrer" id={`Detail_${id}`}>
                   {title}
                 </Link>
                 <UncontrolledTooltip placement="bottom" target={`Detail_${id}`}>

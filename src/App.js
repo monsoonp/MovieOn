@@ -15,11 +15,11 @@ function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/movie/:id" element={<Detail />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/domestic" element={<Domestic />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/domesticboxoffice" element={<Domestic />} />
+        <Route path="/globalboxoffice" element={<Home />} />
         {/* page not found */}
-        <Route path="/*" element={<Home />} />
+        <Route path="/*" element={<Domestic />} />
       </Routes>
     </Router>
   );
