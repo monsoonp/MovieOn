@@ -20,18 +20,17 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
         "Access-Control-Allow-Origin": "*",
       },
     };
-    const fetch_data = {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      body: JSON.stringify(body),
-      headers: header_config,
-    };
 
     const res = await axios.post("movie", body, header_config);
+
+    // TODO: 영화 목록이 여럿일 경우 특정 영화 찾기 추가
     console.log(res.data.items);
-    setData(res.data.items[0]);
+    if (res.data.items.length === 0) {
+    } else if (res.data.items.length === 1) {
+      setData(res.data.items[0]);
+    } else {
+      setData(res.data.items[0]);
+    }
   };
 
   const ApiText = async () => {
@@ -57,20 +56,34 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
     <Col className="my-5 mx-auto" sm="5">
       <Card>
         <CardTitle className="mx-3 mb-0">
-          <div className={styles.movie}>
-            <h2>{rank}</h2>
-            <h2 className={styles.movie__title}>
-              <Link to={``}>{title}</Link>
-            </h2>
-            {/* <img className={styles.movie__img} src={coverImg} alt={title} /> */}
+          {/* <div className={styles.movie}> */}
+          <div>
+            <Row>
+              <Col>
+                <h2 className={styles.movie__rank}>{rank}</h2>
+                <img className={styles.movie__img2} src={data.image} alt={data.titl0e} />
+              </Col>
+              <Col>
+                <h2 className={styles.movie__title}>
+                  {/* <Link to={``}></Link> */}
+                  <a href={data.link} target="_blank" rel="noreferrer">
+                    {title}
+                  </a>
+                </h2>
+                <hr />
+                <ul className={styles.movie__count + " float-end"}>
+                  <li>금일 관객 : {countFormat.format(audiCount)} 명</li>
+                  <li>누적 관객 : {countFormat.format(audiAcc)} 명</li>
+                  <li>상영관 : {scrnCnt} 개</li>
+                </ul>
+                {/* <img className={styles.movie__img} src={coverImg} alt={title} /> */}
+              </Col>
+            </Row>
           </div>
         </CardTitle>
         {/* <CardSubtitle></CardSubtitle> */}
         {/* <CardBody><h3 className={styles.movie__year}></h3></CardBody> */}
-        <CardBody>
-          <p>영화 상세</p>
-          <img src={data.image} alt={data.title} />
-        </CardBody>
+        <CardBody>{/* <p>영화 상세</p> */}</CardBody>
         <CardFooter>
           <Row>
             <Col>
@@ -78,13 +91,7 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                 개봉일 : {date}
               </Badge>
             </Col>
-            <Col>
-              <ul className={styles.movie__count + " float-start"}>
-                <li>금일 관객 : {countFormat.format(audiCount)} 명</li>
-                <li>누적 관객 : {countFormat.format(audiAcc)} 명</li>
-                <li>상영관 : {scrnCnt} 개</li>
-              </ul>
-            </Col>
+            <Col></Col>
           </Row>
         </CardFooter>
       </Card>
