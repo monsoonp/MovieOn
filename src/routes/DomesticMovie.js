@@ -42,7 +42,6 @@ function Domestic() {
   axios.defaults.withCredentials = true;
 
   // TODO: 영화 상세 내용 추가
-  // TODO: 영화 순위 모션 추가
   const getMovies = async () => {
     // https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=20221101
     const yesterday = dayjs().subtract(1, "day").format("YYYYMMDD");

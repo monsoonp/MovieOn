@@ -3,12 +3,34 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge, Card, CardBody, CardFooter, CardTitle, Col, Row } from "reactstrap";
+import { motion } from "framer-motion";
 import styles from "./Movie.module.css";
 
 function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
   // notation - “standard” (기본값), scientific, engineering, compact
   const countFormat = Intl.NumberFormat("ko-KR", { notation: "compact", numeric: "auto" });
   const [data, setData] = useState({});
+
+  const card = (idx) => {
+    return {
+      hidden: { opacity: 0, scale: 0, x: 0, rotate: -30 },
+      show: {
+        opacity: 1,
+        scale: 1,
+        x: 0,
+        rotate: 0,
+        transition: {
+          // delay: idx * 0.2,
+          // delayChildren: 0.3,
+          // staggerChildren: 0.2,
+          // ease: "easeInOut",
+          type: "spring",
+          bounce: 0.3,
+          duration: 1,
+        },
+      },
+    };
+  };
 
   const CallInfo = async (m_title) => {
     const body = {
@@ -54,47 +76,49 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
 
   return (
     <Col className="my-5 mx-auto" sm="5">
-      <Card>
-        <CardTitle className="mx-3 mb-0">
-          {/* <div className={styles.movie}> */}
-          <div>
+      <motion.div variants={card(parseInt(rank))} initial="hidden" animate="show" viewport={{ once: true, amount: 0.8 }}>
+        <Card>
+          <CardTitle className="mx-3 mb-0">
+            {/* <div className={styles.movie}> */}
+            <div>
+              <Row>
+                <Col>
+                  <h2 className={styles.movie__rank}>{rank}</h2>
+                  <img className={styles.movie__img2} src={data.image} alt={data.titl0e} />
+                </Col>
+                <Col>
+                  <h2 className={styles.movie__title}>
+                    {/* <Link to={``}></Link> */}
+                    <a href={data.link} target="_blank" rel="noreferrer">
+                      {title}
+                    </a>
+                  </h2>
+                  <hr />
+                  <ul className={styles.movie__count + " float-end"}>
+                    <li>금일 관객 : {countFormat.format(audiCount)} 명</li>
+                    <li>누적 관객 : {countFormat.format(audiAcc)} 명</li>
+                    <li>상영관 : {scrnCnt} 개</li>
+                  </ul>
+                  {/* <img className={styles.movie__img} src={coverImg} alt={title} /> */}
+                </Col>
+              </Row>
+            </div>
+          </CardTitle>
+          {/* <CardSubtitle></CardSubtitle> */}
+          {/* <CardBody><h3 className={styles.movie__year}></h3></CardBody> */}
+          <CardBody>{/* <p>영화 상세</p> */}</CardBody>
+          <CardFooter>
             <Row>
               <Col>
-                <h2 className={styles.movie__rank}>{rank}</h2>
-                <img className={styles.movie__img2} src={data.image} alt={data.titl0e} />
+                <Badge className="float-start mx-3 mt-1" color="primary">
+                  개봉일 : {date}
+                </Badge>
               </Col>
-              <Col>
-                <h2 className={styles.movie__title}>
-                  {/* <Link to={``}></Link> */}
-                  <a href={data.link} target="_blank" rel="noreferrer">
-                    {title}
-                  </a>
-                </h2>
-                <hr />
-                <ul className={styles.movie__count + " float-end"}>
-                  <li>금일 관객 : {countFormat.format(audiCount)} 명</li>
-                  <li>누적 관객 : {countFormat.format(audiAcc)} 명</li>
-                  <li>상영관 : {scrnCnt} 개</li>
-                </ul>
-                {/* <img className={styles.movie__img} src={coverImg} alt={title} /> */}
-              </Col>
+              <Col></Col>
             </Row>
-          </div>
-        </CardTitle>
-        {/* <CardSubtitle></CardSubtitle> */}
-        {/* <CardBody><h3 className={styles.movie__year}></h3></CardBody> */}
-        <CardBody>{/* <p>영화 상세</p> */}</CardBody>
-        <CardFooter>
-          <Row>
-            <Col>
-              <Badge className="float-start mx-3 mt-1" color="primary">
-                개봉일 : {date}
-              </Badge>
-            </Col>
-            <Col></Col>
-          </Row>
-        </CardFooter>
-      </Card>
+          </CardFooter>
+        </Card>
+      </motion.div>
     </Col>
   );
 }
