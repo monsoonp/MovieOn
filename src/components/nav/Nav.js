@@ -1,20 +1,30 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Navbar, NavbarBrand } from "reactstrap";
+import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from "reactstrap";
 
 // TODO: 메뉴 스타일 변경
 const MovieNav = () => {
-  return (
-    <Navbar className="" color="dark" dark>
-      <NavbarBrand color="white">
-        {/* <Link to={`/`}>HOME</Link> */}
-        <Link className="mx-5" to={`/domesticboxoffice`}>
-          국내 박스오피스
-        </Link>
-        <Link className="mx-5" to={`/globalboxoffice`}>
-          글로벌 박스오피스
-        </Link>
-      </NavbarBrand>
+  const [isOpen, setIsOpen] = useState(true);
+  const toggle = () => setIsOpen(!isOpen);
 
+  return (
+    <Navbar className="" color="light">
+      {/* <NavbarBrand href="">HOME</NavbarBrand> */}
+      {/* <NavbarToggler onClick={toggle} /> */}
+      <Collapse isOpen={isOpen} navbar>
+        <Nav>
+          <NavItem>
+            <NavLink className="" href={`domesticboxoffice`}>
+              국내 박스오피스
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink className="" href={`globalboxoffice`}>
+              글로벌 박스오피스
+            </NavLink>
+          </NavItem>
+        </Nav>
+      </Collapse>
       {/* 
       <Nav className="mx-5" navbar>
         <NavLink href="/MovieOn/domesticboxofficce">국내 박스오피스</NavLink>
