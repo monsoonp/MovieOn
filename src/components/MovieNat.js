@@ -94,10 +94,16 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                     </a>
                   </h2>
                   <hr />
+                  <p className="text-sm-end fw-bold">
+                    {/* {data.director && data.director.replaceAll("|", ", ").replace(/(,)?([ㄱ-힣]+)(,)/, "$1")} */}
+                    {data.director && data.director.replaceAll("|", ", ").replace(/,\s*$/, "")}
+                  </p>
+                  {/* TODO: 영화 상세 정보 추가 */}
+                  {/* FIXME: 차트 형태로 형태 변경 */}
                   <ul className={styles.movie__count + " float-end"}>
                     <li>금일 관객 : {countFormat.format(audiCount)} 명</li>
                     <li>누적 관객 : {countFormat.format(audiAcc)} 명</li>
-                    <li>상영관 : {scrnCnt} 개</li>
+                    <li>상영관 : {scrnCnt}</li>
                   </ul>
                   {/* <img className={styles.movie__img} src={coverImg} alt={title} /> */}
                 </Col>
@@ -113,8 +119,9 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                 <Badge className="float-start mx-3 mt-1" color="primary">
                   개봉일 : {date}
                 </Badge>
+                {/* TODO: 영화 배우 목록 스타일 변경 */}
+                {data.actor}
               </Col>
-              <Col></Col>
             </Row>
           </CardFooter>
         </Card>
