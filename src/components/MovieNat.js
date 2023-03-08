@@ -2,7 +2,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Badge, Card, CardBody, CardFooter, CardTitle, Col, Row } from "reactstrap";
+import { Badge, Card, CardBody, CardFooter, CardTitle, Col, Row, Table } from "reactstrap";
 import { motion } from "framer-motion";
 import styles from "./Movie.module.css";
 
@@ -69,6 +69,10 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
       });
   };
 
+  const textSplitter = (text) => {
+    return text.replaceAll("|", ", ").replace(/,\s*$/, "");
+  };
+
   useEffect(() => {
     CallInfo(title);
     // ApiText();
@@ -84,6 +88,7 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
               <Row>
                 <Col>
                   <h2 className={styles.movie__rank}>{rank}</h2>
+                  {/* TODO: 이미지 확대 모션 추가 */}
                   <img className={styles.movie__img2} src={data.image} alt={data.titl0e} />
                 </Col>
                 <Col>
@@ -93,19 +98,33 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                       {title}
                     </a>
                   </h2>
+
                   <hr />
-                  <p className="text-sm-end fw-bold">
-                    {/* {data.director && data.director.replaceAll("|", ", ").replace(/(,)?([ㄱ-힣]+)(,)/, "$1")} */}
-                    {data.director && data.director.replaceAll("|", ", ").replace(/,\s*$/, "")}
-                  </p>
-                  {/* TODO: 영화 상세 정보 추가 */}
-                  {/* FIXME: 차트 형태로 형태 변경 */}
-                  <ul className={styles.movie__count + " float-end"}>
-                    <li>금일 관객 : {countFormat.format(audiCount)} 명</li>
-                    <li>누적 관객 : {countFormat.format(audiAcc)} 명</li>
-                    <li>상영관 : {scrnCnt}</li>
-                  </ul>
-                  {/* <img className={styles.movie__img} src={coverImg} alt={title} /> */}
+
+                  <Table hover bordered={false} responsive>
+                    <thead>
+                      <tr>
+                        <th className="text-end" colSpan={2} scope="row">
+                          {data.director && textSplitter(data.director)}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>금일 관객</td>
+                        <td>{countFormat.format(audiCount)} 명</td>
+                      </tr>
+                      <tr>
+                        <td>누적 관객</td>
+                        <td>{countFormat.format(audiAcc)} 명</td>
+                      </tr>
+                      <tr>
+                        <td>상영관</td>
+                        <td>{scrnCnt}</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                  {/* TODO: 상세 내용 추가 */}
                 </Col>
               </Row>
             </div>
@@ -119,8 +138,7 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                 <Badge className="float-start mx-3 mt-1" color="primary">
                   개봉일 : {date}
                 </Badge>
-                {/* TODO: 영화 배우 목록 스타일 변경 */}
-                {data.actor}
+                {data.actor && textSplitter(data.actor)}
               </Col>
             </Row>
           </CardFooter>

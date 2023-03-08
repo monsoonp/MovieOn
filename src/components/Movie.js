@@ -73,11 +73,7 @@ function Movie({ idx, id, title, coverImg, year, summary, genres, imdb, lang }) 
             <Badge className="float-start mx-2 mt-1" color="primary">
               {lang}
             </Badge>
-            <ul className={styles.movie__genres}>
-              {genres.map((genre, idx) => (
-                <li key={idx}>{genre}</li>
-              ))}
-            </ul>
+            <ul className={styles.movie__genres}>{genres && genres.map((genre, idx) => <li key={idx}>{genre}</li>)}</ul>
           </CardFooter>
         </Card>
       </motion.div>

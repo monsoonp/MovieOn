@@ -6,7 +6,7 @@
 // add "homepage": "https://monsoonp.github.io/{repo}"
 // for gh-pages add basename to BrowserRouter
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
 import Domestic from "./routes/DomesticMovie";
@@ -19,7 +19,7 @@ function App() {
         <Route path="/domesticboxoffice" element={<Domestic />} />
         <Route path="/globalboxoffice" element={<Home />} />
         {/* page not found */}
-        <Route path="/*" element={<Domestic />} />
+        <Route path="/" element={<Navigate to="/domesticboxoffice" />} />
       </Routes>
     </Router>
   );
