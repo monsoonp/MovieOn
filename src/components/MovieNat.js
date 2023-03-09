@@ -92,38 +92,47 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                   <img className={styles.movie__img2} src={data.image} alt={data.titl0e} />
                 </Col>
                 <Col>
-                  <h2 className={styles.movie__title}>
-                    {/* <Link to={``}></Link> */}
-                    <a href={data.link} target="_blank" rel="noreferrer">
-                      {title}
-                    </a>
-                  </h2>
+                  <Row>
+                    <h2 className={styles.movie__title}>
+                      {/* <Link to={``}></Link> */}
+                      <a href={data.link} target="_blank" rel="noreferrer">
+                        {title}
+                      </a>
+                    </h2>
 
-                  <hr />
+                    <hr />
+                  </Row>
 
-                  <Table hover bordered={false} responsive>
-                    <thead>
-                      <tr>
-                        <th className="text-end" colSpan={2} scope="row">
-                          {data.director && textSplitter(data.director)}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>금일 관객</td>
-                        <td>{countFormat.format(audiCount)} 명</td>
-                      </tr>
-                      <tr>
-                        <td>누적 관객</td>
-                        <td>{countFormat.format(audiAcc)} 명</td>
-                      </tr>
-                      <tr>
-                        <td>상영관</td>
-                        <td>{scrnCnt}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
+                  <Row>
+                    <Table hover bordered={false} responsive>
+                      <thead>
+                        <tr>
+                          <th className="text-end" colSpan={2} scope="row">
+                            {data.director && textSplitter(data.director)}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>금일 관객</td>
+                          <td>{countFormat.format(audiCount)} 명</td>
+                        </tr>
+                        <tr>
+                          <td>누적 관객</td>
+                          <td>{countFormat.format(audiAcc)} 명</td>
+                        </tr>
+                        <tr>
+                          <td>상영관</td>
+                          <td>{scrnCnt}</td>
+                        </tr>
+                        <tr>
+                          <td className="text-muted small" colSpan={2}>
+                            {data.actor && textSplitter(data.actor)}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Row>
                   {/* TODO: 상세 내용 추가 */}
                 </Col>
               </Row>
@@ -138,7 +147,6 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                 <Badge className="float-start mx-3 mt-1" color="primary">
                   개봉일 : {date}
                 </Badge>
-                {data.actor && textSplitter(data.actor)}
               </Col>
             </Row>
           </CardFooter>
