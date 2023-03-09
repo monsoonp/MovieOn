@@ -16,10 +16,10 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/domesticboxoffice" element={<Domestic />} />
+        <Route path="/boxoffice" element={<Domestic />} />
         <Route path="/globalboxoffice" element={<Home />} />
         {/* page not found */}
-        <Route path="/" element={<Navigate to="/domesticboxoffice" />} />
+        <Route path="/" element={<Navigate to="/boxoffice" />} />
       </Routes>
     </Router>
   );

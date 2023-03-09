@@ -14,7 +14,7 @@ const MovieNav = () => {
       <Collapse isOpen={isOpen} navbar>
         <Nav>
           <NavItem>
-            <NavLink className="" href={`domesticboxoffice`}>
+            <NavLink className="" href={`boxoffice`}>
               국내 박스오피스
             </NavLink>
           </NavItem>
