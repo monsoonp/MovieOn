@@ -41,6 +41,7 @@ app.post("/movie", function (req, res) {
     } else {
       res.status(response.statusCode).end();
       console.log("error = " + response.statusCode);
+      // error 429 - 동일 클라이언트 ID로 초당 10회 이상 요청 시 발생
     }
   });
 
