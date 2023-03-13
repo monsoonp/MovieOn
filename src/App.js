@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/boxoffice" element={<Domestic />} />
-        <Route path="/globalboxoffice" element={<Home />} />
+        <Route path="/globalupcoming" element={<Home />} />
         {/* page not found */}
         <Route path="/" element={<Navigate to="/boxoffice" />} />
       </Routes>

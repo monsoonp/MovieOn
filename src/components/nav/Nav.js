@@ -19,8 +19,8 @@ const MovieNav = () => {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink className="" href={`globalboxoffice`}>
-              글로벌 박스오피스
+            <NavLink className="" href={`globalupcoming`}>
+              글로벌 개봉 예정작
             </NavLink>
           </NavItem>
         </Nav>
