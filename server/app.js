@@ -9,8 +9,23 @@ const server = http.createServer(app);
 
 app.use(cors());
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(compression());
+
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  compression({
+    level: 6, // 압축 정도 설정
+    threshold: 100 * 1000, // 압축하지 않는 최소 크기 설정 - 100kb 아래 데이터 압축 안하고 클라이언트에 전송
+    // filter - 특정 조건에 따라 압축 여부 결정
+    filter: (req, res) => {
+      if (req.headers["x-no-compression"]) {
+        // header에 x-no-compression이 있으면, 압축하지 않도록 false를 반환한다.
+        return false;
+      }
+      return compression.filter(req, res);
+      // 없는 경우에는 압축허용
+    },
+  })
+);
 
 app.get("/test", (req, res) => {
   console.log(req.query, req.body, "received");
