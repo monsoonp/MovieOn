@@ -54,7 +54,7 @@ function Movie({ idx, id, title, coverImg, year, summary, genres, imdb, lang }) 
                   // onClick={() => {window.open(`https://www.imdb.com/title/${imdb}`, "_blank");}}
                 />
                 <UncontrolledTooltip placement="right" target={`imdb_${id}`}>
-                  imdb 페이지
+                  imdb
                 </UncontrolledTooltip>
               </motion.a>
             </div>
@@ -73,7 +73,12 @@ function Movie({ idx, id, title, coverImg, year, summary, genres, imdb, lang }) 
             <Badge className="float-start mx-2 mt-1" color="primary">
               {lang}
             </Badge>
-            <ul className={styles.movie__genres}>{genres && genres.map((genre, idx) => <li key={idx}>{genre}</li>)}</ul>
+            <ul id={`genre_${id}`} className={styles.movie__genres}>
+              {genres && genres.map((genre, idx) => <li key={idx}>{genre}</li>)}
+            </ul>
+            <UncontrolledTooltip placement="bottom" target={`genre_${id}`}>
+              장르
+            </UncontrolledTooltip>
           </CardFooter>
         </Card>
       </motion.div>

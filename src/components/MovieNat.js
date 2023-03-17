@@ -2,7 +2,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Badge, Card, CardBody, CardFooter, CardTitle, Col, Row, Table } from "reactstrap";
+import { Badge, Card, CardBody, CardFooter, CardTitle, Col, Row, Table, UncontrolledTooltip } from "reactstrap";
 import { motion } from "framer-motion";
 import styles from "./Movie.module.css";
 
@@ -93,12 +93,15 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                 </Col>
                 <Col>
                   <Row>
-                    <h2 className={styles.movie__title}>
+                    <h2 id={`info_${rank}`} className={styles.movie__title}>
                       {/* <Link to={``}></Link> */}
                       <a href={data.link} target="_blank" rel="noreferrer">
                         {title}
                       </a>
                     </h2>
+                    <UncontrolledTooltip placement="left" target={`info_${rank}`}>
+                      네이버 영화
+                    </UncontrolledTooltip>
 
                     <hr />
                   </Row>
@@ -107,11 +110,14 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                     <Table hover bordered={false} responsive>
                       <thead>
                         <tr>
-                          <th className="text-end" colSpan={2} scope="row">
+                          <th id={`director_${rank}`} className="text-end" colSpan={2} scope="row">
                             {data.director && textSplitter(data.director)}
                           </th>
                         </tr>
                       </thead>
+                      <UncontrolledTooltip placement="right" target={`director_${rank}`}>
+                        감독
+                      </UncontrolledTooltip>
                       <tbody>
                         <tr>
                           <td>금일 관객</td>
@@ -126,12 +132,15 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                           <td>{scrnCnt}</td>
                         </tr>
                         <tr>
-                          <td className="text-muted small" colSpan={2}>
+                          <td id={`actor_${rank}`} className="text-muted small" colSpan={2}>
                             {data.actor && textSplitter(data.actor)}
                           </td>
                         </tr>
                       </tbody>
                     </Table>
+                    <UncontrolledTooltip placement="bottom" target={`actor_${rank}`}>
+                      출연
+                    </UncontrolledTooltip>
                   </Row>
                   {/* TODO: 상세 내용 추가 */}
                 </Col>
