@@ -56,7 +56,6 @@ function Home() {
         <Container fluid>
           <MovieNav />
           {/* <div className={styles.movies}></div> */}
-          <div>글로벌 개봉 예정작</div>
 
           <Row>
             {movies.map((movie, idx) => (
