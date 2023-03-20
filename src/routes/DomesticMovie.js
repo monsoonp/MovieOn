@@ -42,12 +42,6 @@ function Domestic() {
   const [movies, setMovies] = useState([]);
   axios.defaults.withCredentials = true;
 
-  /*
-  const navigate = useNavigate();
-  document.startViewTransition(() => {
-    return navigate("/boxoffice");
-  });
-*/
   // TODO: 영화 상세 내용 추가
   const getMovies = async () => {
     // https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=20221101
