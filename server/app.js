@@ -34,7 +34,10 @@ app.get("/test", (req, res) => {
 
 // naver movie search - https://developers.naver.com/docs/serviceapi/search/blog/blog.md#node-jsreact proxy error
 // https://developers.naver.com/docs/serviceapi/search/movie/movie.md
-
+/*
+FIXME: https://developers.naver.com/notice/article/9553
+네이버 영화 검색 api 지원 종료
+*/
 const client_id = "WQ04NcGLpJkMhJSfDcYN";
 const client_secret = "bhE_FVyxbO";
 
@@ -50,6 +53,7 @@ app.post("/movie", function (req, res) {
   // console.log(req.body.title, encodeURI(req.body.title));
 
   request.get(options, function (error, response, body) {
+    console.log(body);
     if (!error && response.statusCode === 200) {
       res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
       res.end(body);
