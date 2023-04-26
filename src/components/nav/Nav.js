@@ -7,22 +7,25 @@ const MovieNav = () => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
 
+  const nav_items = [
+    { title: "예매 순위", link: "reservation" },
+    { title: "주간 박스오피스", link: "boxoffice" },
+    { title: "글로벌 개봉 예정작", link: "globalupcoming" },
+  ];
+
   return (
     <Navbar className="" color="light">
       {/* <NavbarBrand href="">HOME</NavbarBrand> */}
       {/* <NavbarToggler onClick={toggle} /> */}
       <Collapse isOpen={isOpen} navbar>
         <Nav>
-          <NavItem>
-            <NavLink className="" href={`boxoffice`}>
-              국내 박스오피스
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink className="" href={`globalupcoming`}>
-              글로벌 개봉 예정작
-            </NavLink>
-          </NavItem>
+          {nav_items.map((item, idx) => (
+            <NavItem key={idx}>
+              <NavLink className="" href={item.link}>
+                {item.title}
+              </NavLink>
+            </NavItem>
+          ))}
         </Nav>
       </Collapse>
       {/* 

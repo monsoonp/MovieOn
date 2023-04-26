@@ -10,16 +10,18 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
 import Domestic from "./routes/DomesticMovie";
+import Reservation from "./routes/Reservation";
 
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/reservation" element={<Reservation />} />
         <Route path="/boxoffice" element={<Domestic />} />
         <Route path="/globalupcoming" element={<Home />} />
         {/* page not found */}
-        <Route path="/" element={<Navigate to="/boxoffice" />} />
+        <Route path="/" element={<Navigate to="/reservation" />} />
       </Routes>
     </Router>
   );

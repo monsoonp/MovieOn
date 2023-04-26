@@ -67,6 +67,36 @@ app.post("/movie", function (req, res) {
   // res.send("end");
 });
 
+// 카카오 api test
+// const api_url = "https://dapi.kakao.com/suggest-hub/v1/search.json?service=movie-v2&cate=movie|person&multiple=1&q=%EC%95%84%EB%B0%94%ED%83%80";
+
+// 카카오 영화 순위
+// https://movie.daum.net/api/common/reservation/rank
+app.get("/movie", (req, res) => {
+  const rest_key = "e71d98d9c95eadcbc11e8db4d6390e22";
+  //
+  // const api_url = "https://dapi.kakao.com/v2/search/web?query=" + encodeURI("아바타");
+  const api_url = "https://movie.daum.net/api/common/reservation/rank";
+  var options = {
+    url: api_url,
+    headers: { Authorization: `KakaoAK ${rest_key}` },
+  };
+  // console.log(req.params, req.query, req.body);
+  // console.log(req.body.title, encodeURI(req.body.title));
+
+  request.get(options, function (error, response, body) {
+    // console.log(body);
+    if (!error && response.statusCode === 200) {
+      res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
+      res.end(body);
+    } else {
+      res.status(response.statusCode).end();
+      console.log("error = " + response.statusCode);
+      // error 429 - 동일 클라이언트 ID로 초당 10회 이상 요청 시 발생
+    }
+  });
+});
+
 server.listen({ port: 8000 }, () => {
   console.log("server listening on 8000...");
 });

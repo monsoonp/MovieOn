@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import MovieNat from "../components/MovieNat";
 import styles from "./Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row } from "reactstrap";
-
-import MovieNav from "../components/nav/Nav.js";
-
 import dayjs from "dayjs";
-import axios from "axios";
+
 import SpinLoader from "../components/util/SpinLoader";
-import { useNavigate } from "react-router-dom";
+import MovieNav from "../components/nav/Nav.js";
+import MovieNat from "../components/MovieNat";
+import axios from "axios";
 
 /*
 --- CORS 문제있음  ---
@@ -35,12 +33,12 @@ https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&qu
 https://m.search.naver.com/p/csearch/content/qapirender.nhn?_callback=___MovieAPIforPList_key_68_pkid_nexearch_where_1_start_8_display_s1_dsc_so_%ED%98%84%EC%9E%AC%EC%83%81%EC%98%81%EC%98%81%ED%99%94_q&key=MovieAPIforPList&pkid=68&where=nexearch&start=1&display=8&so=s1.dsc&q=%ED%98%84%EC%9E%AC%EC%83%81%EC%98%81%EC%98%81%ED%99%94
 */
 
+// TODO: 주간 목록으로 변경
 function Domestic() {
-  const apiBase = "https://kobis.or.kr";
+  const apiUrl = "https://kobis.or.kr";
   const key = "9ce20477c0eaa9705194fd025a51f646";
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
-  axios.defaults.withCredentials = true;
 
   // TODO: 영화 상세 내용 추가
   const getMovies = async () => {
@@ -48,7 +46,7 @@ function Domestic() {
     const yesterday = dayjs().subtract(1, "day").format("YYYYMMDD");
 
     const response = await fetch(
-      `${apiBase}/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=${yesterday}`
+      `${apiUrl}/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=${yesterday}`
     );
     const json = await response.json();
 

@@ -56,20 +56,12 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
   };
 
   const CallRank = async () => {
-    const header_config = {
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
     /*
     예매 순위 https://movie.daum.net/api/common/reservation/rank
     tving https://movie.daum.net/api/main/tving/rank
     wavve https://movie.daum.net/api/main/wavve/rank
     watcha https://movie.daum.net/api/main/watcha/rank
     */
-    const res = await axios.get("https://movie.daum.net/api/common/reservation/rank", header_config);
-    console.log(res);
   };
 
   const textSplitter = (text) => {
