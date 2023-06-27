@@ -7,6 +7,8 @@ const app = express();
 const cors = require("cors");
 const server = http.createServer(app);
 
+const { naver_client_id, naver_client_secret, daum_api_key } = require("./keys/api_key.js");
+
 app.use(cors());
 app.use(express.json());
 
@@ -32,14 +34,12 @@ app.get("/test", (req, res) => {
   res.send({ hello: "world" });
 });
 
-// naver movie search - https://developers.naver.com/docs/serviceapi/search/blog/blog.md#node-jsreact proxy error
-// https://developers.naver.com/docs/serviceapi/search/movie/movie.md
-/*
-FIXME: https://developers.naver.com/notice/article/9553
-네이버 영화 검색 api 지원 종료
-*/
-const client_id = "WQ04NcGLpJkMhJSfDcYN";
-const client_secret = "bhE_FVyxbO";
+/**
+ * 네이버 영화 검색 API
+ * 서비스 종료됨
+ */
+const client_id = naver_client_id;
+const client_secret = naver_client_secret;
 
 app.post("/movie", function (req, res) {
   // const api_url = "https://openapi.naver.com/v1/search/movie?query=" + encodeURI(req.query.query); // JSON 결과
@@ -67,22 +67,23 @@ app.post("/movie", function (req, res) {
   // res.send("end");
 });
 
-// 카카오 api test
-// const api_url = "https://dapi.kakao.com/suggest-hub/v1/search.json?service=movie-v2&cate=movie|person&multiple=1&q=%EC%95%84%EB%B0%94%ED%83%80";
+/*
+  // 카카오 영화 순위
+  예매 순위 https://movie.daum.net/api/common/reservation/rank
+  
+  예고편 영상
+  https://tv.kakao.com/embed/player/cliplink/{videoUrl_number}?service=kakao_tv&section=channel&autoplay=1&profile=HIGH&wmode=transparent
+*/
 
-// 카카오 영화 순위
-// https://movie.daum.net/api/common/reservation/rank
-app.get("/movie", (req, res) => {
-  const rest_key = "e71d98d9c95eadcbc11e8db4d6390e22";
+app.get("/api/movie/rank/reservation", (req, res) => {
+  const rest_key = daum_api_key;
   //
   // const api_url = "https://dapi.kakao.com/v2/search/web?query=" + encodeURI("아바타");
   const api_url = "https://movie.daum.net/api/common/reservation/rank";
   var options = {
     url: api_url,
-    headers: { Authorization: `KakaoAK ${rest_key}` },
+    // headers: { Authorization: `KakaoAK ${rest_key}` },
   };
-  // console.log(req.params, req.query, req.body);
-  // console.log(req.body.title, encodeURI(req.body.title));
 
   request.get(options, function (error, response, body) {
     // console.log(body);
@@ -93,6 +94,67 @@ app.get("/movie", (req, res) => {
       res.status(response.statusCode).end();
       console.log("error = " + response.statusCode);
       // error 429 - 동일 클라이언트 ID로 초당 10회 이상 요청 시 발생
+    }
+  });
+});
+
+/**
+ *
+ * 다음 현재 상영 순위
+ * https://movie.daum.net/api/premovie?page=1&size=20&flag=Y
+ *
+ * 다음 개봉예정작 예매율 순위
+ * https://movie.daum.net/api/premovie?page=1&size=20&flag=C
+ */
+
+app.get("/api/movie/rank/boxoffice", (req, res) => {
+  //
+  // const api_url = "https://dapi.kakao.com/v2/search/web?query=" + encodeURI("아바타");
+  const api_url = "https://movie.daum.net/api/premovie?page=1&size=10&flag=Y";
+  var options = {
+    url: api_url,
+  };
+
+  request.get(options, function (error, response, body) {
+    // console.log(body);
+    if (!error && response.statusCode === 200) {
+      res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
+      res.end(body);
+    } else {
+      res.status(response.statusCode).end();
+      console.log("error = " + response.statusCode);
+    }
+  });
+});
+
+/**
+ *   
+  tving https://movie.daum.net/api/main/tving/rank
+  wavve https://movie.daum.net/api/main/wavve/rank
+  watcha https://movie.daum.net/api/main/watcha/rank
+  
+  daum 영화 상세 정보 
+  https://movie.daum.net/moviedb/main?movieId={movieId}
+  https://movie.daum.net/api/movie/{movieId}/main
+  
+ */
+app.get("/api/movie/rank/ott/:ott_service", (req, res) => {
+  const { ott_service } = req.params;
+  //
+  // const api_url = "https://dapi.kakao.com/v2/search/web?query=" + encodeURI("아바타");
+  const api_url = `https://movie.daum.net/api/main/${ott_service}/rank`;
+
+  var options = {
+    url: api_url,
+  };
+
+  request.get(options, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
+      res.end(body);
+    } else {
+      res.status(response.statusCode).end();
+      console.log("error = " + response.statusCode);
     }
   });
 });
