@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
-import { Badge, Button, Card, CardBody, CardFooter, CardTitle, Col, Row, Table, UncontrolledTooltip } from "reactstrap";
+import { Badge, Button, Card, CardBody, CardFooter, CardTitle, Col, Modal, Row, Table, UncontrolledTooltip } from "reactstrap";
 import { motion } from "framer-motion";
 import styles from "./Movie.module.css";
 
@@ -11,6 +11,11 @@ function Movie({ rank, admission, rate, title, image: img_link, director, actor,
   // const [data, setData] = useState({});
   const new_plot = plot.replace(/<\/?br?>/g, " ");
   const compressed_plot = new_plot.split(" ").length > 30 ? `${new_plot.split(" ").slice(0, 30).join(" ")} ...` : new_plot;
+  // const videoUrl_number = video_link ? video_link.split("/").pop() : 0;
+  let videoUrl_number = video_link?.split("/")?.pop();
+  videoUrl_number ??= 0; //null 타입 값 할당
+  const [modal, setModal] = useState(false);
+  const modalToggle = () => setModal(!modal);
 
   const card = (idx) => {
     return {
@@ -45,18 +50,29 @@ function Movie({ rank, admission, rate, title, image: img_link, director, actor,
               <Row>
                 <Col>
                   <h2 className={styles.movie__rank}>{rank}</h2>
-                  {/* TODO: 이미지 확대 모션 추가 */}
-                  <img className={styles.movie__img2} src={img_link} alt={img_link} />
+                  <img className={styles.movie__img2} src={img_link} alt={img_link} loading="lazy" />
                 </Col>
                 <Col>
                   <Row>
-                    <h2 id={`info_${rank}`} className={styles.movie__title}>
-                      {/* <Link to={``}></Link> */}
-                      {/* <a href={data.link} target="_blank" rel="noreferrer"> */}
-                      <a href={video_link} target="_blank" rel="noreferrer">
+                    <div id={`info_${rank}`} className={styles.movie__title}>
+                      {/* <a href={video_link} target="_blank" rel="noreferrer"> */}
+                      <a className="fw-bold" onClick={modalToggle}>
                         {title}
                       </a>
-                    </h2>
+                      {/*
+                        reactstrap - modal
+                        https://reactstrap.github.io/?path=/docs/components-modal--modal 
+                       */}
+                      <Modal isOpen={modal} toggle={modalToggle} backdrop={true} keyboard={true} size="lg" centered={true}>
+                        <iframe
+                          title="trailerFrame"
+                          src={`https://tv.kakao.com/embed/player/cliplink/${videoUrl_number}?service=kakao_tv&section=channel&autoplay=1&profile=HIGH&wmode=transparent`}
+                          // width="800"
+                          height="500"
+                          sandbox // 보호구역 설정
+                        />
+                      </Modal>
+                    </div>
                     <UncontrolledTooltip placement="left" target={`info_${rank}`}>
                       예고편 보기
                     </UncontrolledTooltip>
@@ -70,7 +86,7 @@ function Movie({ rank, admission, rate, title, image: img_link, director, actor,
                         <tr>
                           <th id={`director_${rank}`} className="text-end" colSpan={2} scope="row">
                             {/* {data.director && textSplitter(data.director)} */}
-                            {director.toString().replace(",", ", ")}
+                            {director.toString().replaceAll(",", ", ")}
                           </th>
                         </tr>
                       </thead>
@@ -79,19 +95,25 @@ function Movie({ rank, admission, rate, title, image: img_link, director, actor,
                       </UncontrolledTooltip>
                       <tbody>
                         <tr>
-                          <td id={`actor_${rank}`} className="text-muted small" colSpan={2}>
+                          <td id={`actor_${rank}`} className="text-end text-muted small" colSpan={2}>
                             {/* {data.actor && textSplitter(data.actor)} */}
-                            {actor.toString().replace(",", ", ")}
+                            {actor.toString().replaceAll(",", ", ")}
                           </td>
                         </tr>
+                        <UncontrolledTooltip placement="right" target={`actor_${rank}`}>
+                          출연
+                        </UncontrolledTooltip>
+                        <tr>
+                          <td id={`plot_${rank}`} className="text-muted small" colSpan={2}>
+                            {compressed_plot}
+                          </td>
+                        </tr>
+                        <UncontrolledTooltip placement="right" target={`plot_${rank}`}>
+                          줄거리
+                        </UncontrolledTooltip>
                       </tbody>
                     </Table>
-                    <UncontrolledTooltip placement="bottom" target={`actor_${rank}`}>
-                      출연
-                    </UncontrolledTooltip>
                   </Row>
-                  {/* FIXME: 상세 내용 UI, 위치 변경 */}
-                  {compressed_plot}
                 </Col>
               </Row>
             </div>
@@ -112,8 +134,8 @@ function Movie({ rank, admission, rate, title, image: img_link, director, actor,
                 <Badge className="float-end mx-0 mt-1" color="primary">
                   개봉일 : {date}
                 </Badge>
-                <Button className="float-end mx-3 mt-0" color="primary" size="sm" outline>
-                  {genre.toString().replace(",", ", ")}
+                <Button className="float-end mx-3 mt-0" color="primary" size="sm" outline disabled>
+                  {genre.toString().replaceAll(",", ", ")}
                 </Button>
               </Col>
             </Row>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row } from "reactstrap";
 import dayjs from "dayjs";
 
@@ -33,30 +32,41 @@ https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&qu
 https://m.search.naver.com/p/csearch/content/qapirender.nhn?_callback=___MovieAPIforPList_key_68_pkid_nexearch_where_1_start_8_display_s1_dsc_so_%ED%98%84%EC%9E%AC%EC%83%81%EC%98%81%EC%98%81%ED%99%94_q&key=MovieAPIforPList&pkid=68&where=nexearch&start=1&display=8&so=s1.dsc&q=%ED%98%84%EC%9E%AC%EC%83%81%EC%98%81%EC%98%81%ED%99%94
 */
 
-// TODO: 주간 목록으로 변경
 function Domestic() {
   const apiUrl = "https://kobis.or.kr";
   const key = "9ce20477c0eaa9705194fd025a51f646";
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
+  const [movieRank, setMovieRank] = useState([]);
 
-  // TODO: 영화 상세 내용 추가
   const getMovies = async () => {
     // https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=20221101
     const yesterday = dayjs().subtract(1, "day").format("YYYYMMDD");
 
+    // 주간 박스오피스로 변경
     const response = await fetch(
-      `${apiUrl}/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key}&targetDt=${yesterday}`
+      `${apiUrl}/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=${key}&targetDt=${yesterday}`
     );
     const json = await response.json();
-
-    setMovies(json.boxOfficeResult.dailyBoxOfficeList);
-    setLoading(false);
+    // setMovies(json.boxOfficeResult.dailyBoxOfficeList);
+    setMovies(json.boxOfficeResult.weeklyBoxOfficeList);
     // console.log(json.boxOfficeResult.dailyBoxOfficeList);
+    setLoading(false);
+  };
+
+  const getMovieRank = async () => {
+    const res = await axios.get("/api/movie/rank/boxoffice");
+    const {
+      data: { contents },
+    } = res;
+    console.log(contents);
+    setMovieRank(contents);
   };
 
   useEffect(() => {
     getMovies();
+    getMovieRank();
+    setLoading(false);
   }, []);
 
   return (
@@ -68,7 +78,7 @@ function Domestic() {
           <MovieNav />
           {/* 국내 영화 목록 */}
           <Row>
-            {movies.map((movie) => (
+            {movies.map((movie, idx) => (
               <MovieNat
                 key={movie.movieNm}
                 id={movie.id}

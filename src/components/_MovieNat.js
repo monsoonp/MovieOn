@@ -32,57 +32,11 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
     };
   };
 
-  const CallInfo = async (m_title) => {
-    const body = {
-      title: m_title,
-    };
-    const header_config = {
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
-
-    const res = await axios.post("movie", body, header_config);
-
-    // TODO: 영화 목록이 여럿일 경우 특정 영화 찾기 추가
-    console.log(res.data.items);
-    if (res.data.items.length === 0) {
-    } else if (res.data.items.length === 1) {
-      setData(res.data.items[0]);
-    } else {
-      setData(res.data.items[0]);
-    }
-  };
-
-  const CallRank = async () => {
-    const header_config = {
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
-    /*
-    예매 순위 https://movie.daum.net/api/common/reservation/rank
-    tving https://movie.daum.net/api/main/tving/rank
-    wavve https://movie.daum.net/api/main/wavve/rank
-    watcha https://movie.daum.net/api/main/watcha/rank
-    */
-    const res = await axios.get("https://movie.daum.net/api/common/reservation/rank", header_config);
-    console.log(res);
-  };
-
   const textSplitter = (text) => {
     return text.replaceAll("|", ", ").replace(/,\s*$/, "");
   };
 
-  useEffect(() => {
-    // 영화 정보 가져오기
-    // CallInfo(title);
-    // TODO: 기존 정보에 이미지 추가
-    // 카카오 영화 순위
-    // https://movie.daum.net/api/common/reservation/rank
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Col className="my-5 mx-auto" sm="5">
@@ -95,7 +49,7 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                 <Col>
                   <h2 className={styles.movie__rank}>{rank}</h2>
                   {/* TODO: 이미지 확대 모션 추가 */}
-                  <img className={styles.movie__img2} src={data.image} alt={data.titl0e} />
+                  <img className={styles.movie__img2} src={data.image} alt={data.title} />
                 </Col>
                 <Col>
                   <Row>
@@ -148,7 +102,6 @@ function Movie({ rank, title, audiCount, audiAcc, scrnCnt, date }) {
                       출연
                     </UncontrolledTooltip>
                   </Row>
-                  {/* TODO: 상세 내용 추가 */}
                 </Col>
               </Row>
             </div>

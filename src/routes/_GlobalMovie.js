@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Movie from "../components/Movie";
 import styles from "./Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Nav, Navbar, NavbarBrand, NavLink, Row, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 import SpinLoader from "../components/util/SpinLoader";
@@ -38,6 +37,10 @@ function Home() {
 
   useEffect(() => {
     getMovies();
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 4000);
   }, []);
 
   // console.log(movies);

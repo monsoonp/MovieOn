@@ -10,7 +10,7 @@ module.exports = function (app) {
     })
   );
   app.use(
-    "/Movieon/test",
+    "/Movieon/api",
     createProxyMiddleware({
       target: "http://localhost:8000/",
       changeOrigin: true,

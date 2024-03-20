@@ -15,5 +15,8 @@
     "http": "^0.0.1-security",
     "nodemon": "^2.0.20",
     "request": "^2.88.2"
+  },
+  "__version_desc__": {
+    "node": "v16.15.0"
   }
 }

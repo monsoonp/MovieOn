@@ -3,9 +3,13 @@ import { Button, Spinner } from "reactstrap";
 
 import styles from "./SpinLoader.module.css";
 
-const SpinLoader = () => {
+const SpinLoader = (style = "page") => {
+  // FIXME: 작은사이즈 로딩 추가
+  // 로딩 페이지 전체 or 작은 사이즈 설정
+  const loaderStyle = style === "page" ? styles.loader : "";
+
   return (
-    <div className={styles.loader}>
+    <div className={loaderStyle}>
       <Button color="primary" disabled>
         <motion.div
           animate={{
